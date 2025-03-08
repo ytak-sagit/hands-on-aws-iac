@@ -1,0 +1,23 @@
+{
+    "name": "AWS IaC Dev Container",
+    "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:1-22",
+    "features": {
+        "ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers/features/terraform:1": {},
+        "ghcr.io/devcontainers-extra/features/aws-cdk:2": {}
+    },
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "mounts": [
+      "source=node_modules,target=${containerWorkspaceFolder}/node_modules"
+    ],
+    "postCreateCommand": "sudo chown node node_modules",
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mhutchie.git-graph"
+            ]
+        }
+    }
+}

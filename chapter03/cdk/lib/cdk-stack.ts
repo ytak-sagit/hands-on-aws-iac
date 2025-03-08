@@ -8,7 +8,7 @@ export class SqsStack extends cdk.Stack {
 
     const queue = new sqs.Queue(this, 'MyQueue', {
       queueName: 'test-queue-cdk',
-      maxMessageSizeBytes: 2048,
+      maxMessageSizeBytes: 4096,
     });
     cdk.Tags.of(queue).add('Name', 'test-queue-cdk');
   }

@@ -13,7 +13,7 @@ exports[`SQS Stack should match the snapshot 1`] = `
     "SqsTestQueue8E896C04": {
       "DeletionPolicy": "Delete",
       "Properties": {
-        "VisibilityTimeout": 300,
+        "VisibilityTimeout": 120,
       },
       "Type": "AWS::SQS::Queue",
       "UpdateReplacePolicy": "Delete",

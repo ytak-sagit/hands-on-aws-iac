@@ -5,5 +5,6 @@ export interface SqsTestStackProps extends cdk.StackProps {
 }
 
 export const props: SqsTestStackProps = {
-  visibilityTimeout: cdk.Duration.seconds(300),
+  // visibilityTimeout: cdk.Duration.seconds(300),
+  visibilityTimeout: cdk.Duration.seconds(120),
 };

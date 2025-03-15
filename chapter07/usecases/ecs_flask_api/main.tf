@@ -295,7 +295,7 @@ resource "aws_ecs_task_definition" "flask_api" {
   requires_compatibilities = ["FARGATE"]
   # jsonencode を使うと、HCL の記述を JSON に変換できる
   # values() を使うと、マップの値だけをリストとして取得できる
-  container_definitions = jsonencode(values(locals.container_definitions))
+  container_definitions = jsonencode(values(local.container_definitions))
   # タスク定義の過去バージョンは削除しない
   skip_destroy = true
 }

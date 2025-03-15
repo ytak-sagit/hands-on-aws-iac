@@ -257,28 +257,30 @@ resource "aws_cloudwatch_log_group" "flask_api" {
 # NOTE: このようにしておくことで、aws_ecs_task_definition の container_definitions 以外からも参照できる
 locals {
   container_definitions = {
-    name  = "flask-api"
-    image = "${data.aws_ecr_repository.flask_api.repository_url}:latest"
-    secrets = [
-      {
-        name      = "CORRECT_ANSWER"
-        valueFrom = data.aws_ssm_parameter.flask_api_correct_answer.arn
-      },
-    ]
-    essential = true
-    portMappings = [
-      {
-        containerPort = 5000
-        hostPort      = 5000
-        protocol      = "tcp"
-      },
-    ]
-    logConfiguration = {
-      logDriver = "awslogs"
-      options = {
-        awslogs-group         = aws_cloudwatch_log_group.flask_api.name
-        awslogs-region        = data.aws_region.current.name
-        awslogs-stream-prefix = "flask-api"
+    flask_api = {
+      name  = "flask-api"
+      image = "${data.aws_ecr_repository.flask_api.repository_url}:latest"
+      secrets = [
+        {
+          name      = "CORRECT_ANSWER"
+          valueFrom = data.aws_ssm_parameter.flask_api_correct_answer.arn
+        },
+      ]
+      essential = true
+      portMappings = [
+        {
+          containerPort = 5000
+          hostPort      = 5000
+          protocol      = "tcp"
+        },
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.flask_api.name
+          awslogs-region        = data.aws_region.current.name
+          awslogs-stream-prefix = "flask-api"
+        }
       }
     }
   }

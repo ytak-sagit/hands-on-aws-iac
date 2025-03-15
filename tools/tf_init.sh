@@ -18,7 +18,7 @@ STAGE=$1 # modules, usecases, dev, stg, prd, ...
 MODULE_NAME=$2
 
 ROOT_DIR="$(pwd)"
-BACKEND_BUCKET_NAME="${STAGE}-tfstate-aws-${BUCKET_SUFFIX}"
+BACKEND_BUCKET_NAME="${STAGE}-ytak-tfstate-aws-${BUCKET_SUFFIX}"
 
 if [ "${STAGE}" = "modules" ] || [ "${STAGE}" = "usecases" ]; then
   MODULE_FLAG=1

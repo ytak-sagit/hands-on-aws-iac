@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ROOT_DIR=$(cd $(dirname $0)/.. && pwd)
+ROOT_DIR="$(pwd)"
 
 # 最新の AWS プロバイダのバージョンを取得
 VERSION_TO="$(tfupdate release latest hashicorp/terraform-provider-aws)"

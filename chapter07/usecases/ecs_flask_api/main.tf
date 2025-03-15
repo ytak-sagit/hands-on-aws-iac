@@ -156,7 +156,7 @@ resource "aws_security_group" "ecs_instance" {
 
 # ALB 用のセキュリティグループのインバウンドルール
 # 任意の IP アドレスからの 80 番ポートへの接続を許可
-resource "aws_vpc_security_ingress_rule" "lb_from_http" {
+resource "aws_vpc_security_group_ingress_rule" "lb_from_http" {
   ip_protocol       = "tcp"
   security_group_id = aws_security_group.alb.id
   from_port         = 80
@@ -166,7 +166,7 @@ resource "aws_vpc_security_ingress_rule" "lb_from_http" {
 
 # ALB 用のセキュリティグループのアウトバウンドルール
 # ECS Fargate インスタンスの 5000 番ポートへの接続を許可
-resource "aws_vpc_security_egress_rule" "lb_to_ecs_instance" {
+resource "aws_vpc_security_group_egress_rule" "lb_to_ecs_instance" {
   ip_protocol       = "tcp"
   security_group_id = aws_security_group.alb.id
   from_port         = 5000
@@ -177,7 +177,7 @@ resource "aws_vpc_security_egress_rule" "lb_to_ecs_instance" {
 
 # ECS Fargate インスタンス用のセキュリティグループのインバウンドルール
 # ALB の 5000 番ポートからの接続を許可
-resource "aws_vpc_security_ingress_rule" "ecs_instance_from_lb" {
+resource "aws_vpc_security_group_ingress_rule" "ecs_instance_from_lb" {
   ip_protocol       = "tcp"
   security_group_id = aws_security_group.ecs_instance.id
   from_port         = 5000
@@ -189,7 +189,7 @@ resource "aws_vpc_security_ingress_rule" "ecs_instance_from_lb" {
 # ECS Fargate インスタンス用のセキュリティグループのアウトバウンドルール
 # 任意の IP アドレスの 443 番ポートへの接続を許可
 # -> AWS アクションをリクエストするエンドポイント（ECR, SSM など）と通信できるようにするため
-resource "aws_vpc_security_egress_rule" "ecs_instance_to_http" {
+resource "aws_vpc_security_group_egress_rule" "ecs_instance_to_http" {
   ip_protocol       = "tcp"
   security_group_id = aws_security_group.ecs_instance.id
   from_port         = 443
@@ -326,7 +326,7 @@ resource "aws_ecs_service" "flask_api" {
 
   network_configuration {
     # WARNING: 本ハンズオンでは、パブリックサブネットに配置する
-    subnets          = data.aws_subnet.public.ids
+    subnets          = data.aws_subnets.public.ids
     security_groups  = [aws_security_group.ecs_instance.id]
     assign_public_ip = true
   }

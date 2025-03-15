@@ -129,7 +129,7 @@ data "aws_vpc" "this" {
 
 # データソースによるサブネットの情報の照会
 # Name というタグの値で指定
-data "aws_subnet" "public" {
+data "aws_subnets" "public" {
   filter {
     name = "tag:Name"
     values = [
@@ -206,7 +206,7 @@ resource "aws_lb" "flask_api" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   # パブリックサブネットに配置
-  subnets = data.aws_subnet.public.ids
+  subnets = data.aws_subnets.public.ids
 }
 
 # ALB のターゲットグループ

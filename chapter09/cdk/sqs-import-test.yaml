@@ -1,0 +1,18 @@
+---
+Metadata:
+  AWSToolsMetrics:
+    # 以下の値はダミー値なので注意
+    IaC_Generator: "arn:aws:cloudformation:ap-northeast-1:123456789012:generatedTemplate/abcdefgh-ijkl-mnop-qrst-uvwxyz123456"
+Resources:
+  SQSQueue00importtest00Qt3XT:
+    UpdateReplacePolicy: "Retain"
+    Type: "AWS::SQS::Queue"
+    DeletionPolicy: "Retain"
+    Properties:
+      SqsManagedSseEnabled: true
+      ReceiveMessageWaitTimeSeconds: 0
+      DelaySeconds: 0
+      MessageRetentionPeriod: 345600
+      MaximumMessageSize: 262144
+      VisibilityTimeout: 10
+      QueueName: "import-test"

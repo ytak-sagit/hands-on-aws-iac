@@ -12,7 +12,7 @@ const lambdaName = "print_event_py";
 
 const getLambdaBucket = (stage: string) => `${stage}-ytak-lambda-deploy-ap-northeast-1`;
 
-export const getSSMParameterName = (stage: string) => `/lambda_zip/${stage}/${lambdaName};`
+export const getSSMParameterName = (stage: string) => `/lambda_zip/${stage}/${lambdaName}`;
 
 export class LambdaPrintEventPyStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: LambdaPrintEventPyStackProps) {

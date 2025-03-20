@@ -1,20 +1,34 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
-import { LambdaPrintEventPyStack } from '../lib/lambda_print_event_py-stack';
+import { getSSMParameterName, LambdaPrintEventPyStack } from '../lib/lambda_print_event_py-stack';
+import { environmentProps, Stages } from '../lib/environments';
+import { getParameterFromSSM } from '../lib/utils';
 
-const app = new cdk.App();
-new LambdaPrintEventPyStack(app, 'LambdaPrintEventPyStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
+const stage = process.env.STAGE as Stages;
+if (!stage) {
+  throw new Error('STAGE is not defined');
+}
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+const environment = environmentProps[stage];
+if (!environment) {
+  throw new Error(`Invalid stage: ${stage}`);
+}
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+(async () => {
+  const app = new cdk.App();
+  const _stage = new cdk.Stage(app, stage, {
+    env: {
+      account: environment.account,
+      region: 'ap-northeast-1',
+    },
+  });
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+  const lambdaZipFileName = await getParameterFromSSM(
+    getSSMParameterName(stage)
+  );
+
+  new LambdaPrintEventPyStack(_stage, 'LambdaPrintEventPyStack', {
+    stage,
+    lambdaZipFileName,
+  });
+})();

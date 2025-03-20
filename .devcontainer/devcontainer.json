@@ -8,9 +8,6 @@
     },
     "workspaceFolder": "/workspace",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-    "mounts": [
-      "source=node_modules,target=${containerWorkspaceFolder}/node_modules"
-    ],
     "postCreateCommand": "sudo chown node node_modules",
     "remoteUser": "node",
     "customizations": {

@@ -43,7 +43,7 @@ case "${METHOD}" in
     ;;
   "DOCKER")
     IMAGE="${LAMBDA_NAME}"
-    docker build -t "${IMAGE}" --platform "${PLATFORM}:-linux/arm64}" -f "${DOCKERFILE}" .
+    docker build -t "${IMAGE}" --platform "${PLATFORM:-linux/arm64}" -f "${DOCKERFILE}" .
     CONTAINER_ID=$(docker create "${IMAGE}")
     docker cp "${CONTAINER_ID}:/asset" "${OUTPUT_DIR}"
     docker rm -v "${CONTAINER_ID}" > /dev/null

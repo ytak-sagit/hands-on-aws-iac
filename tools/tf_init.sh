@@ -4,7 +4,7 @@
 # モジュール内の初期ファイルを作成するスクリプト
 # ---
 
-TERRAFORM_VERSION="1.11.1"
+TERRAFORM_VERSION="1.11.2"
 AWS_PROVIDER_VERSION="5.72.1"
 # S3 バケットの名前が重複しないようにするための接尾辞
 BUCKET_SUFFIX="iac-book-project"

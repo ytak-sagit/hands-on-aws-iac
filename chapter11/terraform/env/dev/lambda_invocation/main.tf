@@ -23,7 +23,7 @@ resource "aws_lambda_function" "print_event" {
 # NOTE: このリソースの CRUD 時に Lambda 関数が実行される
 resource "aws_lambda_invocation" "print_event" {
   function_name = aws_lambda_function.print_event.function_name
-  input = jsondecode({
+  input = jsonencode({
     resource_properties = {
       greeting = "Hello, World!"
     }

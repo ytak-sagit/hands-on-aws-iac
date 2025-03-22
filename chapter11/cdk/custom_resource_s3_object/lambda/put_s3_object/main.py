@@ -1,7 +1,7 @@
 import cfnresponse
 import boto3
 
-FAILED_DUMMY_PHISICAL_RESOURCE_ID = 'FailedDummyPhysicalResourceId'
+FAILED_DUMMY_PHYSICAL_RESOURCE_ID = 'FailedDummyPhysicalResourceId'
 
 # 指定したキーに対応する S3 オブジェクトがバケットに存在するか確認する
 def check_object_exists(client, bucket, key):

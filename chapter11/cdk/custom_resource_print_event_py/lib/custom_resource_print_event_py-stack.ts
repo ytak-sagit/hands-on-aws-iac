@@ -16,6 +16,7 @@ export class CustomResourcePrintEventPyStack extends cdk.Stack {
       code: lambda.Code.fromInline(code),
       architecture: lambda.Architecture.ARM_64,
       timeout: cdk.Duration.seconds(10),
+      // NOTE: role を指定しない場合は、必要なロールを自動的に補完
     });
 
     new cdk.CustomResource(this, 'PrintEventCustomResource', {
@@ -24,7 +25,6 @@ export class CustomResourcePrintEventPyStack extends cdk.Stack {
       properties: {
         Greeting: 'Hello',
       },
-      // NOTE: role を指定しない場合は、必要なロールを自動的に補完
     });
   }
 }
